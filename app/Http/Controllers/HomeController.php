@@ -6,7 +6,19 @@ use Illuminate\Http\Request;
 use DB;
 
 class HomeController extends Controller
-{
+{    
+    public function generateQuiz()
+    {
+        $questions = DB::select('
+            SELECT * 
+            FROM gcse_math_questions 
+            ORDER BY RAND() 
+            LIMIT 10
+        ');
+
+        return response()->json($questions);
+    }
+    
     public function login(){
 
         return view('login')->with("teacher",1);
